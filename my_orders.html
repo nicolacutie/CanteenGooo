@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block content %}
+<h1>My orders</h1>
+{% for o in orders %}
+<article class="card order"><div class="cart-row"><h3>Order #{{ o.id }}</h3><span class="status">{{ o.status }}</span></div>
+<p>{{ o.stall_name }} · Pickup: {{ o.pickup_location }}</p>
+<p>{{ o.payment_method }} · <strong>₱{{ '%.2f'|format(o.total) }}</strong></p><small>{{ o.created_at }}</small></article>
+{% else %}<p>You have not placed any orders yet.</p>{% endfor %}
+{% endblock %}

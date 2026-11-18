@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block content %}
+<h1>{{ vendor.stall_name }} dashboard</h1><p class="muted">Only orders sent to your stall appear here.</p>
+{% for o in orders %}
+<article class="card order"><div class="cart-row"><h3>Order #{{ o.id }}</h3><span class="status">{{ o.status }}</span></div>
+<p>Student: {{ o.student_name }}</p><p>Total: <strong>₱{{ '%.2f'|format(o.total) }}</strong> · {{ o.payment_method }}</p>
+<form method="post" action="{{ url_for('update_status', order_id=o.id) }}" class="inline-form">
+<select name="status">
+{% for s in ['Confirmed','Preparing','Ready for Pickup','Completed','Rejected'] %}
+<option value="{{ s }}" {% if o.status == s %}selected{% endif %}>{{ s }}</option>
+{% endfor %}
+</select><button class="button">Update status</button></form></article>
+{% else %}<p>No orders received yet.</p>{% endfor %}
+{% endblock %}

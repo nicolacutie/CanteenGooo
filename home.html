@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}CanteenGo | Vendors{% endblock %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">SCHOOL FOOD, MADE EASIER</p>
+  <h1>Choose a vendor.<br>Order ahead. Pick up.</h1>
+  <p>Browse participating school canteen stalls and place a separate order with each vendor.</p>
+  {% if not session.get('user_id') %}<a class="button" href="{{ url_for('register') }}">Create student account</a>{% endif %}
+</section>
+<h2>Available vendors</h2>
+<div class="grid">
+{% for vendor in vendors %}
+  <article class="card">
+    <div class="food-icon">🍱</div>
+    <h3>{{ vendor.stall_name }}</h3>
+    <p>Pickup: {{ vendor.pickup_location }}</p>
+    <a class="button" href="{{ url_for('vendor_menu', vendor_id=vendor.id) }}">View menu</a>
+  </article>
+{% endfor %}
+</div>
+<div class="note"><strong>Prototype note:</strong> Online payment is a demo option only. No real payment is processed.</div>
+{% endblock %}

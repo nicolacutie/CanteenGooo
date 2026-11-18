@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block content %}
+<a href="{{ url_for('home') }}">← All vendors</a>
+<h1>{{ vendor.stall_name }}</h1><p class="muted">Pickup location: {{ vendor.pickup_location }}</p>
+<div class="grid">
+{% for p in products %}
+<article class="card"><div class="food-icon">🍽️</div><h3>{{ p.name }}</h3><p>{{ p.description }}</p><strong>₱{{ '%.2f'|format(p.price) }}</strong>
+<form method="post" action="{{ url_for('add_to_cart', product_id=p.id) }}"><button class="button">Add to cart</button></form></article>
+{% else %}<p>No available products yet.</p>{% endfor %}
+</div>{% endblock %}
